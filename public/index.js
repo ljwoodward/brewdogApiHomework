@@ -2,12 +2,7 @@ let beers = [];
 
 const app = function () {
   const url = 'https://api.punkapi.com/v2/beers';
-
-
   makeRequest(url, requestComplete);
-
-
-
 }
 
 const makeRequest = function(url, callback) {
@@ -36,14 +31,7 @@ const populateList = function(beers) {
     beerList.appendChild(beerItemRow);
     const image = beerImageListItem(beer.image_url); // a tr
     beerList.appendChild(image);
-
-
-    const ingredients = ingredientsListItem(beer); // tr
-    // ingredientsItemData.innerText = ingredients;
-    // hopsItem.innerText = 'Hops: ' + getStringOfArray(hops);
-    // maltItem.innerText = 'Malt: ' + getStringOfArray(malt);
-    // yeastItem.innerText = 'Yeast: ' + getStringOfArray(yeast);
-
+    const ingredients = ingredientsListItem(beer);
     beerList.appendChild(ingredients);
   })
 }
@@ -62,14 +50,7 @@ const beerImageListItem = function (url) {
 
 const ingredientsListItem = function(beer) {
   const newIngredients = document.createElement('tr');
-  const ingredients = ingredientsData(beer.ingredients); // td
-  // let malts = maltListItem(beer.ingredients);
-  // let yeast = yeastListItem(beer.ingredients);
-
-  newIngredients.appendChild(ingredients);
-  // ingredients.appendChild(malts);
-  // ingredients.appendChild(yeast);
-
+  const ingredients = ingredientsData(beer.ingredients);newIngredients.appendChild(ingredients);
   ingredients.id = 'ings';
   newIngredients.appendChild(ingredients);
   return newIngredients;
