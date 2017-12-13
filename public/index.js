@@ -25,5 +25,16 @@ const jsonString = this.responseText;
 populateList(beers);
 }
 
+const populateList = function(beers) {
+  const beerList = document.querySelector('#beer-list')
+  beers.forEach(function(beer) {
+    const name = document.createElement('ul');
+    // const name = document.createElement('li');
+    name.innerText = beer.name
+    // ul.appendChild(name);
+    beerList.appendChild(name);
+  })
+}
+
 
 document.addEventListener('DOMContentLoaded', app);
