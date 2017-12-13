@@ -2,10 +2,31 @@ body {
   background-color: pink;
 }
 
-ul, li {
+table {
   font-family: courier;
+  text-align: center;
+  margin: 0 auto;
+  width: 50%;
+  padding-top: 35px;
+  padding-right: 40px;
+  text-align: center;
 }
 
-#ings {
+#ings, #image {
   list-style: none;
+  font-size: 12px;
+  font-weight: 100;
+  font-style: italic;
+}
+
+div.logo {
+  margin: 0 auto;
+  width: 32%;
+  border: 1px;
+  padding: 20px;
+}
+
+#beer-name {
+  font-size: 50px;
+  font-weight: 700;
 }

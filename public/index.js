@@ -12,99 +12,86 @@ const app = function () {
 
 const makeRequest = function(url, callback) {
   const request = new XMLHttpRequest();
-request.open('GET', url);
-request.send();
+  request.open('GET', url);
+  request.send();
   request.addEventListener('load', callback);
 }
 
 const requestComplete = function() {
   if(this.status !== 200) return;
-const jsonString = this.responseText;
+  const jsonString = this.responseText;
   beers = JSON.parse(jsonString);
 
-populateList(beers);
+  populateList(beers);
 }
 
 const populateList = function(beers) {
   const beerList = document.querySelector('#beer-list')
   beers.forEach(function(beer) {
-    const beerItem = document.createElement('ul');
-    beerItem.innerText = beer.name
-    const image = beerImageListItem(beer.image_url);
-    const ingredients = ingredientsListItem(beer);
+    const beerItemRow = document.createElement('tr');
+    const beerItemData = document.createElement('td');
+    beerItemData.innerText = beer.name;
+    beerItemData.id = 'beer-name';
+    beerItemRow.appendChild(beerItemData);
+    beerList.appendChild(beerItemRow);
+    const image = beerImageListItem(beer.image_url); // a tr
+    beerList.appendChild(image);
+
+
+    const ingredients = ingredientsListItem(beer); // tr
+    // ingredientsItemData.innerText = ingredients;
     // hopsItem.innerText = 'Hops: ' + getStringOfArray(hops);
     // maltItem.innerText = 'Malt: ' + getStringOfArray(malt);
     // yeastItem.innerText = 'Yeast: ' + getStringOfArray(yeast);
 
-    beerItem.appendChild(image);
-    beerItem.appendChild(ingredients);
-    beerList.appendChild(beerItem);
+    beerList.appendChild(ingredients);
   })
 }
 
 const beerImageListItem = function (url) {
-  const beerUrl = document.createElement('li');
+  const beerImageRow = document.createElement('tr');
+  const beerImageData = document.createElement('td');
   const beerImg = document.createElement('img');
-  beerImg.width = '200';
+  beerImg.width = '134';
   beerImg.src = url;
-  beerUrl.appendChild(beerImg);
-  return beerUrl;
+  beerImageData.appendChild(beerImg);
+  beerImageData.id = 'beer-image';
+  beerImageRow.appendChild(beerImageData);
+  return beerImageRow;
 }
 
 const ingredientsListItem = function(beer) {
-  const ingredients = document.createElement('ul');
-  ingredients.innerText = 'Ingredients:'
-  let hops = hopsListItem(beer.ingredients);
-  let malts = maltListItem(beer.ingredients);
-  let yeast = yeastListItem(beer.ingredients);
+  const newIngredients = document.createElement('tr');
+  const ingredients = ingredientsData(beer.ingredients); // td
+  // let malts = maltListItem(beer.ingredients);
+  // let yeast = yeastListItem(beer.ingredients);
 
-  ingredients.appendChild(hops);
-  ingredients.appendChild(malts);
-  ingredients.appendChild(yeast);
+  newIngredients.appendChild(ingredients);
+  // ingredients.appendChild(malts);
+  // ingredients.appendChild(yeast);
 
   ingredients.id = 'ings';
-
-  return ingredients;
+  newIngredients.appendChild(ingredients);
+  return newIngredients;
 }
 
-const hopsListItem = function(ingredients) {
+const ingredientsData = function(ingredients) {
   const hops = ingredients.hops;
-  const hopsItem = document.createElement('li');
-  hopsItem.innerText = "Hops: " + getStringOfArrayKey(hops);
-  return hopsItem;
-}
-
-const maltListItem = function(ingredients) {
   const malt = ingredients.malt;
-  const maltItem = document.createElement('li');
-  maltItem.innerText = "Malt: " + getStringOfArrayKey(malt);
-  return maltItem;
-}
-
-const yeastListItem = function(ingredients) {
   const yeast = ingredients.yeast;
-  const yeastItem = document.createElement('li');
-  yeastItem.innerText = "Yeast: " + yeast;
-  return yeastItem;
+  const ingredientsItem = document.createElement('td');
+  ingredientsItem.innerText = "Ingredients///  Hops//  " + getStringOfArray(hops) + " Malt//  " +
+  getStringOfArray(malt) + " Yeast//  " + yeast;
+  return ingredientsItem;
 }
 
-const getStringOfArrayKey = function(array) {
+const getStringOfArray = function(array) {
   let returnString = "";
-  for (var i = 0; i < array.length - 1; i++) {
-    returnString += array[i].name + ", ";
+  for (var i = 0; i < array.length; i++) {
+    returnString += array[i].name + "/";
   }
-  returnString += array[array.length - 1].name + ".";
   return returnString;
 }
-
-const getFromArray = function(array, thingToGet) {
-  for (item of array) {
-    if (item === thingToGet) {
-      return item;
-    }
-  }
-}
-
 
 
 
